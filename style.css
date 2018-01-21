@@ -1,0 +1,22 @@
+* {padding: 0;margin: 0;box-sizing: border-box;
+}
+.page{border: 1px solid red ;height: 100vh; display: flex;flex-direction: column;background: url(http://p4.music.126.net/AAMTnbm4h8BXEsy7G4vHBg==/16571839254197802.jpg) no-repeat center;background-size: cover;}
+
+.disco-contain{position: relative;}
+.disco-contain .needle{width: 97px;position: absolute;top: 0;
+    left: 50%;z-index: 1;}
+.gramophone{display: flex;align-items: center;justify-content: center;margin-top: 50px;}
+
+.gramophone .linght{width: 296px;position: absolute;}
+
+.gramophone .lin{width: 184px;position: absolute;border-radius: 50%;animation: cicle 20s infinite linear;}
+
+.gramophone .black{width: 296px;animation: cicle 20s infinite linear;}
+
+.gramophone .disco{width: 184px;position: absolute;border-radius: 50%;animation: cicle 20s infinite linear;}
+
+@keyframes cicle{
+    0% {transform: rotate(0deg)}
+    100% {transform: rotate(360deg)}
+}
+
