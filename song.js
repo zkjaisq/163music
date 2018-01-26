@@ -21,22 +21,20 @@ $(function () {
         })
     })
     let audio = document.createElement('audio')
-    audio.src = 'http://dl.stream.qqmusic.qq.com/C400003yTXr93OYkOZ.m4a?vkey=366A0A5EA2F32828D679582C25A88968B820D0F6AD438951976B95668B6F3EDCE5622C8D92B7977DA021CEA5D27F3BC44C51DA55922C6529&guid=4326069320&uin=1551311205&fromtag=66'
+    audio.src = 'http://m10.music.126.net/20180126120039/ed6c696ef688dc62501051e2f477f7c4/ymusic/0671/ca73/355c/2b832330d25a65cab30dbea4ebc4fd28.mp3'
     audio.oncanplay = function () {
         audio.play()
-        $('.lin').addClass('playing')
-        $('.disco').addClass('playing')
     }
     $('.disco-contain').on('click', function () {
         audio.pause()
-        $('.lin').removeClass('playing')
-        $('.disco').removeClass('playing')
+        $('.lin').css({'animation-play-state':'paused'})
+        $('.disco').css({'animation-play-state':'paused'})
         $('.icon').addClass('active')
         $('.icon').one('click',function(x){
             audio.play()
             x.stopPropagation()
-            $('.lin').addClass('playing')
-            $('.disco').addClass('playing')
+            $('.lin').css({'animation-play-state':'running'})
+            $('.disco').css({'animation-play-state':'running'})
             $('.icon').removeClass('active')
         })
     

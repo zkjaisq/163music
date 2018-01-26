@@ -9,15 +9,15 @@
 
 .gramophone .linght{width: 296px;position: absolute;}
 
-.gramophone .lin{width: 184px;position: absolute;border-radius: 50%;}
 
-.gramophone .lin.playing{width: 184px;position: absolute;border-radius: 50%;animation: cicle 20s infinite linear;}
+
+.gramophone .lin{width: 184px;position: absolute;border-radius: 50%;animation: cicle 20s infinite linear;}
 
 .gramophone .black{width: 296px;animation: cicle 20s infinite linear;}
 
-.gramophone .disco{width: 184px;position: absolute;border-radius: 50%;}
 
-.gramophone .disco.playing{width: 184px;position: absolute;border-radius: 50%;animation: cicle 20s infinite linear;}
+
+.gramophone .disco{width: 184px;position: absolute;border-radius: 50%;animation: cicle 20s infinite linear;}
 
 @keyframes cicle{
     0% {transform: rotate(0deg)}
