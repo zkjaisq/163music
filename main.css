@@ -1,0 +1,57 @@
+*{padding: 0;margin: 0;box-sizing: border-box;}
+
+body{width: 100vw;}
+section>h2:first-child{
+    font-weight: normal;border-left: 1px   solid #c2463a;line-height: 1;padding-left: 2vw;font-size: 5.4vw;margin: 3vw 0;
+}
+
+
+.icon {width: 1em; height: 1em;vertical-align: -0.15em;fill: currentColor;overflow: hidden;}
+.map{background-color: #c3483c;}
+
+
+header .map .topsvg{width: 38vw;height: 6.7vw;}
+header .map {padding: 4vw;
+  display: flex;justify-content: space-between;
+    align-items: center;
+}
+header .map a {text-decoration: none;color: white;border: 1px solid white;border-radius: 4vw;padding: 0 0.5em;font-size: 15px;line-height: 8vw;}
+header .topbar ul{
+display: flex;
+justify-content: space-around;
+align-items: center;
+list-style: none;
+}
+header .topbar ul li{
+   padding: 2vw 2vw;
+    font-size: 15px;
+    position: relative;
+}
+header .topbar> ul > li > span::after{content: '';position: absolute;border-bottom: 3px solid  #d43c33 ;
+   left: 0;bottom: 0;width: 100%;height: 1px;}
+header .topbar{
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2) ;}
+
+
+.playList{padding-top: 3vw;}
+.playList>ul{display: flex;flex-wrap: wrap;list-style: none;justify-content: space-between;font-size: 3.7vw;}
+.playList>ul>li{ width: calc(33.333333% - 0.5vw);padding-bottom: 4.2vw;
+}
+.playList>ul>li >img{width: 100%;}
+.playList>ul>li >p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+
+
+.hotList > ul > li{border-bottom: 1px solid #aaaaaa;position: relative;padding-left: calc(2vw + 1px);padding-top: 1.6vw;padding-bottom: 1.6vw;}
+.hotList > ul > li > h3{font-size: 4vw;font-weight: normal;}
+.hotList >ul >li > p{font-size: 3.2vw;color: #aaaaaa;line-height: 1;display: flex;}
+.hotList >ul > li > .icon{width: 6.6vw;height: 6.6vw;position: absolute;top:50%;right:4vw;transform: translateY(-50%);}
+.hotList >ul >li > p  .icon-play{height: 4.2vw;width: 4.2vw;padding-right: 1vw;fill: #fe672e;}
+
+
+footer{background: url(http://s3.music.126.net/m/s/img/recommand_bg_2x.png?d045fafc60e017b653f8065a87496922) no-repeat center;}
+footer .art .logo{width: 61vw;margin-top: 18.6vw;}
+footer .art{text-align: center;}
+footer .foot-link{text-decoration: none;border: 1px solid ;
+max-width: 81.3vw;display: block;padding: 1vw 0;text-align: center;margin: 0 auto;border-radius: 5.35vw;color: #d43c33;line-height: 8.7vw;margin-bottom: 2vw;
+}
+footer .footer-worde{font-size: 3.2vw;transform: scale(.75);text-align: center;padding-bottom: 8vw;}

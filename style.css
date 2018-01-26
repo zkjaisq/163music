@@ -1,22 +1,45 @@
 * {padding: 0;margin: 0;box-sizing: border-box;
 }
-.page{border: 1px solid red ;height: 100vh; display: flex;flex-direction: column;background: url(http://p4.music.126.net/AAMTnbm4h8BXEsy7G4vHBg==/16571839254197802.jpg) no-repeat center;background-size: cover;}
-
-.disco-contain{position: relative;}
+.page{height: 100vh; display: flex;flex-direction: column;background: url(http://p4.music.126.net/AAMTnbm4h8BXEsy7G4vHBg==/16571839254197802.jpg) no-repeat center rgba(0, 0, 0, 0.5);background-size: cover;z-index: -2;}
+.page::after{content: '';height: 100vh;width: 100vw;position: absolute;background-color: rgba(0, 0, 0, 0.5);}
+.disco-contain{position: relative;z-index: 1;}
 .disco-contain .needle{width: 97px;position: absolute;top: 0;
     left: 50%;z-index: 1;}
 .gramophone{display: flex;align-items: center;justify-content: center;margin-top: 50px;}
 
 .gramophone .linght{width: 296px;position: absolute;}
 
-.gramophone .lin{width: 184px;position: absolute;border-radius: 50%;animation: cicle 20s infinite linear;}
+.gramophone .lin{width: 184px;position: absolute;border-radius: 50%;}
+
+.gramophone .lin.playing{width: 184px;position: absolute;border-radius: 50%;animation: cicle 20s infinite linear;}
 
 .gramophone .black{width: 296px;animation: cicle 20s infinite linear;}
 
-.gramophone .disco{width: 184px;position: absolute;border-radius: 50%;animation: cicle 20s infinite linear;}
+.gramophone .disco{width: 184px;position: absolute;border-radius: 50%;}
+
+.gramophone .disco.playing{width: 184px;position: absolute;border-radius: 50%;animation: cicle 20s infinite linear;}
 
 @keyframes cicle{
     0% {transform: rotate(0deg)}
     100% {transform: rotate(360deg)}
 }
 
+
+
+
+.icon {width: 1em; height: 1em;vertical-align: -0.15em;fill: currentColor;
+    overflow: hidden;}
+  .icon{position: absolute;z-index: 2;border: px  solid  white;
+    border-radius: 50%;fill: white;height: 12vw;width: 12vw;border: 1px solid white;
+background-color: rgba(0, 0, 0, 0.1);display: none; }
+.icon.active{display: block;}
+
+.song {text-align: center;line-height: 1.5;flex-grow: 1;z-index: 1;}
+.song h3{font-size: 18px;color: white;}
+.song p{ font-size: 14px;color: #AEABAC;line-height: 28px;}
+.song p:active{ color: white;}
+.song .lyric{height: 84px;overflow: hidden;}
+.button {display: flex;justify-content: center;align-items: flex-end;z-index: 1;}
+.button a{width: 38.5vw;text-decoration: navajowhite;text-align: center;
+    border: 1px solid red ;margin: 1em;padding: 1vw;color: #D43B32;
+    border-radius: 4px;}
