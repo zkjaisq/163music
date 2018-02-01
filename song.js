@@ -21,7 +21,7 @@ $(function () {
         })
     })
     let audio = document.createElement('audio')
-    audio.src = 'http://m10.music.126.net/20180126120039/ed6c696ef688dc62501051e2f477f7c4/ymusic/0671/ca73/355c/2b832330d25a65cab30dbea4ebc4fd28.mp3'
+    audio.src = 'http://p3gaw11jx.bkt.clouddn.com/0671%252Fca73%252F355c%252F2b832330d25a65cab30dbea4ebc4fd28.mp3'
     audio.oncanplay = function () {
         audio.play()
     }
