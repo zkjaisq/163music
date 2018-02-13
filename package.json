@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/zkjaisq/163music/issues"
   },
-  "homepage": "https://github.com/zkjaisq/163music#readme"
+  "homepage": "https://github.com/zkjaisq/163music#readme",
+  "dependencies": {
+    "leancloud-storage": "^3.6.0",
+    "plupload": "^2.3.6",
+    "qiniu": "^7.1.2",
+    "qiniu-js": "^1.0.24"
+  }
 }
