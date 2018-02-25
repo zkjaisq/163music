@@ -1,10 +1,10 @@
 {
     let view = {
-        el: '.page > main',
+        el: '.page > main > .formArea',
         init() {
             this.$el = $(this.el)
         },
-        template: ` <h2>新建歌曲</h2>
+        template: ` 
         <form class="form">
             <div class="row">
                     <label for="songName">

@@ -1,6 +1,6 @@
 {
     let view = {
-        el: '.submitArea',
+        el: '.page > main > .submitArea',
         template: `
         <div id="uploadContainer">
         <p id="uploadBotton">点击或者拖拽上传文件</p>
@@ -10,6 +10,7 @@
             return $(this.el).find(selector)[0]
         },
         render(data){
+            console.log(this.el)
             $(this.el).html(this.template)
         }
     }
@@ -18,7 +19,7 @@
         init(view,model){
             this.view = view 
             this.model = model
-            view.render()
+            view.render(this.view.data)
             this.initQiniu()
         },
         initQiniu(){
