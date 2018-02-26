@@ -109,12 +109,11 @@
                 })
 
             })
-            window.eventHub.on('select',(data)=>{
-                console.log(data)
-                this.model.data = data
-                console.log(this.model.data)
-                this.view.render(this.model.data)
-            })
+           window.eventHub.on('select',(data)=>{
+            console.log(data)
+            this.model.data = data
+            this.view.render(this.model.data)
+           })
         }
     }
     controller.init(view, model)

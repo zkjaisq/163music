@@ -33,7 +33,6 @@
         },
         activeItem(li){
             let $li = $(li)
-            console.log($li)
             $li.addClass('active').siblings('.active').removeClass('active')
         
         }
@@ -71,20 +70,22 @@
             })
         },
         bindEvents(){
-            $(this.view.el).on('click','li',(e)=>{
-                this.view.activeItem(e.currentTarget)
-                let songId = e.currentTarget.getAttribute('data-song-id')
-                let songs = this.model.data.songs
-                let data
-                for(let i =0; i<songs.length;i++){
-                    if(songs[i].id === songId){
-                        data = songs[i]
-                       break
-                    }
-                }
-                window.eventHub.trigger('select',JSON.parse(JSON.stringify(data)))
-            })
-               
+            console.log(this.view.el)
+         $(this.view.el).on('click','li',(e)=>{
+             this.view.activeItem(e.currentTarget)
+             let songId = e.currentTarget.getAttribute('data-song-id')
+             let data 
+             let songs = this.model.data.songs
+             console.log(songs)
+             for(let i =0;i<songs.length;i++){
+                 if(songId = songs[i].id){
+                     data =songs[i]
+                     console.log(data)
+                     break
+                 }
+             }
+             window.eventHub.trigger('select',JSON.parse(JSON.stringify(data)))
+         })
         },
         bindEventsHub() {
             window.eventHub.on('upload', () => {
