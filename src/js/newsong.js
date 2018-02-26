@@ -17,7 +17,6 @@
             this.view.render(this.model.data)
             this.active()
             window.eventHub.on('select',(data)=>{
-                console.log(data.id)
             this.deactive()
             })
            

@@ -101,7 +101,6 @@
                 })
 
                 this.model.creat(data).then(() => {
-                 
                     this.view.reset()
                     let string =JSON.stringify(this.model.data)
                     let object = JSON.parse(string)
@@ -109,6 +108,12 @@
                     //当成功创建一个表单，songlist就可以监听创建事件
                 })
 
+            })
+            window.eventHub.on('select',(data)=>{
+                console.log(data)
+                this.model.data = data
+                console.log(this.model.data)
+                this.view.render(this.model.data)
             })
         }
     }
