@@ -21,7 +21,7 @@
             let { songs } = data
             console.log(songs)
             let liList = songs.map((song) => {
-                return $('<li></li>').text(song.name)
+                return $('<li></li>').text(song.name).attr("data-song-id",song.id)
             })
             $el.find('ul').empty()
             liList.map((domList) => {
@@ -30,6 +30,12 @@
         },
         removActive() {
             $(this.el).find('.active').removeClass('active')
+        },
+        activeItem(li){
+            let $li = $(li)
+            console.log($li)
+            $li.addClass('active').siblings('.active').removeClass('active')
+        
         }
     }
     let model = {
@@ -39,14 +45,14 @@
         //从数据库中获取到数据并且展现在页面上
         find() {
             var query = new AV.Query('Song');
-            return query.find().then((songs)=>{
-                this.data.songs = songs.map((song)=>{
-                    return {id:song.id,...song.attributes}
+            return query.find().then((songs) => {
+                this.data.songs = songs.map((song) => {
+                    return { id: song.id, ...song.attributes }
                 })
                 console.log(this.data.songs)
                 return this.data.songs
             })
-               
+
 
         }
     }
@@ -55,6 +61,25 @@
             this.view = view
             this.model = model
             this.view.render(this.model.data)
+            this.getAllsongs()
+            this.bindEventsHub()
+            this.bindEvents()
+        },
+        getAllsongs(){
+           return  this.model.find().then(() => {
+                this.view.render(this.model.data)
+            })
+        },
+        bindEvents(){
+            $(this.view.el).on('click','li',(e)=>{
+                this.view.activeItem(e.currentTarget)
+                let songId = e.currentTarget.getAttribute('data-song-id')
+                console.log(songId)
+                window.eventHub.trigger('select',{id:songId})
+            })
+               
+        },
+        bindEventsHub() {
             window.eventHub.on('upload', () => {
                 this.view.removActive()
             })
@@ -65,10 +90,6 @@
                 console.log(1)
                 this.view.render(this.model.data)
             })
-            this.model.find().then(()=>{
-                this.view.render(this.model.data)
-            })
-
         }
     }
     controller.init(view, model)
