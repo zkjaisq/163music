@@ -70,33 +70,34 @@
             })
         },
         bindEvents(){
-            console.log(this.view.el)
          $(this.view.el).on('click','li',(e)=>{
              this.view.activeItem(e.currentTarget)
              let songId = e.currentTarget.getAttribute('data-song-id')
+             console.log("ID")
+             console.log(songId)
              let data 
              let songs = this.model.data.songs
              console.log(songs)
-             for(let i =0;i<songs.length;i++){
-                 if(songId = songs[i].id){
-                     data =songs[i]
-                     console.log(data)
+             for(let i = 0;i<songs.length;i++){
+                 if(songId === songs[i].id){
+                     data = songs[i]
                      break
                  }
              }
+             console.log(data)
              window.eventHub.trigger('select',JSON.parse(JSON.stringify(data)))
          })
         },
         bindEventsHub() {
-            window.eventHub.on('upload', () => {
-                this.view.removActive()
-            })
             //如果是创建了一个歌曲就会将这个data添加到songlist的model里面。
             window.eventHub.on('creat', (songData) => {
                 console.log(songData)
                 this.model.data.songs.push(songData)
                 console.log(1)
                 this.view.render(this.model.data)
+            })
+            window.eventHub.on('new',()=>{
+                this.view.removActive()
             })
         }
     }

@@ -85,7 +85,7 @@
             this.view.render(this.model.data)
             this.bindEvents()
             //当有数据上传的时候就渲染view
-            window.eventHub.on('upload', (data) => {
+            window.eventHub.on('new', (data) => {
                 this.view.render(data)
             })
         },
@@ -113,6 +113,15 @@
             console.log(data)
             this.model.data = data
             this.view.render(this.model.data)
+           })
+           window.eventHub.on('new',(data)=>{
+              
+           if(this.model.data.id){
+               data = {}
+           }else{
+               Object.assign(this.model.data,data)
+           }
+               this.view.render(data)
            })
         }
     }

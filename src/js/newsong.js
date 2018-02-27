@@ -14,12 +14,12 @@
         init(view,model){
             this.view =view
             this.model = model
-            this.view.render(this.model.data)
+            this.view.render()
             this.active()
             window.eventHub.on('select',(data)=>{
-                console.log(data)
             this.deactive()
             })
+            this.bindEvents()
            
         },
         active(){
@@ -27,8 +27,16 @@
         },
         deactive(){
             $(this.view.el).removeClass('active')
-                }
-      
+                },
+        bindEvents(){
+            window.eventHub.on('new',()=>{
+                this.active()
+            })
+            $(this.view.el).on('click',()=>{
+                window.eventHub.trigger('new')
+                
+            })
+        },   
     }
    
     controller.init(view,model)

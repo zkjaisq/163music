@@ -69,7 +69,7 @@
                 var sourceLink = 'http://' + domain + '/' + encodeURIComponent(res.key); //获取上传成功后的文件的Url
                 let key = res.key + ''
                 let array = key.split(' - ')
-                window.eventHub.trigger('upload',{
+                window.eventHub.trigger('new',{
                     url:sourceLink,
                     artist: array[0],
                     name:array[1].slice(0,-4)
