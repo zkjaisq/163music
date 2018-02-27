@@ -35,7 +35,7 @@
             })
             $(this.el).html(html)
         },
-        reset(){
+        reset() {
             this.render({})
         }
     }
@@ -75,7 +75,19 @@
             }, (error) => {
                 console.error(error);
             });
-        }
+        },
+        updata(data) {
+            var  song = AV.Object.createWithoutData('Song', this.data.id);
+            // 修改属性
+            song.set('name', data.name);
+            song.set('artist',data.artist);
+            song.set('url',data.url);
+            // 保存到云端
+            return song.save().then((response)=>{
+                Object.assign(this.data,data)
+                return response
+            });
+        },
     }
     let controller = {
         init(view, model) {
@@ -89,40 +101,60 @@
                 this.view.render(data)
             })
         },
+        creat() {
+            let needs = "name artist url".split(' ')
+            let data = {}
+            needs.map((string) => {
+                data[string] = this.view.$el.find(`[name = ${string}]`).val()
+            })
+
+            this.model.creat(data).then(() => {
+                this.view.reset()
+                let string = JSON.stringify(this.model.data)
+                let object = JSON.parse(string)
+                window.eventHub.trigger('creat', object)
+                //当成功创建一个表单，songlist就可以监听创建事件
+            })
+        },
+        updata() {
+            let needs = "name artist url".split(' ')
+            let data = {}
+            needs.map((string) => {
+                data[string] = this.view.$el.find(`[name = ${string}]`).val()
+            })
+            // 第一个参数是 className，第二个参数是 objectId
+            this.model.updata(data).then(()=>{
+                alert('数据更新成功')
+                window.eventHub.trigger('updata',JSON.parse(JSON.stringify(this.model.data)))
+            })
+        },
         //事件相关的代码，当表单提交的时候就进行收集我们需要的数据，然后通过model调用model的方法将数据保存到数据库中
         bindEvents() {
             this.view.$el.on('submit', 'form', (e) => {
+                if (this.model.data.id) {
+                    this.updata()
+                } else {
+                    this.creat()
+                }
 
                 e.preventDefault()//阻止表单提交事件
-                let needs = "name artist url".split(' ')
-                let data = {}
-                needs.map((string) => {
-                    data[string] = this.view.$el.find(`[name = ${string}]`).val()
-                })
 
-                this.model.creat(data).then(() => {
-                    this.view.reset()
-                    let string =JSON.stringify(this.model.data)
-                    let object = JSON.parse(string)
-                    window.eventHub.trigger('creat',object)
-                    //当成功创建一个表单，songlist就可以监听创建事件
-                })
 
             })
-           window.eventHub.on('select',(data)=>{
-            console.log(data)
-            this.model.data = data
-            this.view.render(this.model.data)
-           })
-           window.eventHub.on('new',(data)=>{
-              
-           if(this.model.data.id){
-               data = {}
-           }else{
-               Object.assign(this.model.data,data)
-           }
-               this.view.render(data)
-           })
+            window.eventHub.on('select', (data) => {
+                console.log(data)
+                this.model.data = data
+                this.view.render(this.model.data)
+            })
+            window.eventHub.on('new', (data) => {
+
+                if (this.model.data.id) {
+                    data = {}
+                } else {
+                    Object.assign(this.model.data, data)
+                }
+                this.view.render(data)
+            })
         }
     }
     controller.init(view, model)
