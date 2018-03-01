@@ -5,6 +5,9 @@ header{position: fixed;top: 0;left: 0;width: 100%;z-index: 1;background-color: w
 section>h2:first-child{
     font-weight: normal;border-left: 1px   solid #c2463a;line-height: 1;padding-left: 2vw;font-size: 5.4vw;margin: 3vw 0;
 }
+ul,ol{
+    list-style: none;
+}
 
 
 .icon {width: 1em; height: 1em;vertical-align: -0.15em;fill: currentColor;overflow: hidden;}
@@ -28,11 +31,20 @@ header .topbar ul li{
     font-size: 15px;
     position: relative;
 }
-header .topbar> ul > li > span::after{content: '';position: absolute;border-bottom: 3px solid  #d43c33 ;
+header .topbar> ul > li.active> span::after{content: '';position: absolute;border-bottom: 3px solid  #d43c33 ;
    left: 0;bottom: 0;width: 100%;height: 1px;}
 header .topbar{
     box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2) ;}
 
+.tabPage{
+    margin-top: 98px;
+}
+.tabPage > li.active{
+    display: block;
+}
+.tabPage > li{
+    display: none;
+}
 
 .playList{padding-top: 3vw;margin-top: 98px;}
 .playList>ul{display: flex;flex-wrap: wrap;list-style: none;justify-content: space-between;font-size: 3.7vw;}

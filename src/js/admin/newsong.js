@@ -16,9 +16,6 @@
             this.model = model
             this.view.render()
             this.active()
-            window.eventHub.on('select',(data)=>{
-            this.deactive()
-            })
             this.bindEvents()
            
         },
@@ -29,6 +26,9 @@
             $(this.view.el).removeClass('active')
                 },
         bindEvents(){
+            window.eventHub.on('select',()=>{
+                this.deactive()
+            })
             window.eventHub.on('new',()=>{
                 this.active()
             })

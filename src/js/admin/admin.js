@@ -97,9 +97,10 @@
             this.view.render(this.model.data)
             this.bindEvents()
             //当有数据上传的时候就渲染view
-            window.eventHub.on('new', (data) => {
-                this.view.render(data)
-            })
+            window.eventHub.on('select', (data)=>{
+                this.model.data = data
+                this.view.render(this.model.data)
+              })
         },
         creat() {
             let needs = "name artist url".split(' ')
@@ -131,15 +132,13 @@
         //事件相关的代码，当表单提交的时候就进行收集我们需要的数据，然后通过model调用model的方法将数据保存到数据库中
         bindEvents() {
             this.view.$el.on('submit', 'form', (e) => {
+                e.preventDefault()//阻止表单提交事件
+                console.log(this.model.data.id)
                 if (this.model.data.id) {
                     this.updata()
                 } else {
                     this.creat()
                 }
-
-                e.preventDefault()//阻止表单提交事件
-
-
             })
             window.eventHub.on('select', (data) => {
                 console.log(data)
@@ -147,14 +146,15 @@
                 this.view.render(this.model.data)
             })
             window.eventHub.on('new', (data) => {
-
-                if (this.model.data.id) {
-                    data = {}
-                } else {
+                if(this.model.data.id){
+                    this.model.data = {
+                      name: '', url: '', id: '', singer: ''
+                    }
+                  }else{
                     Object.assign(this.model.data, data)
-                }
-                this.view.render(data)
-            })
+                  }
+                  this.view.render(this.model.data)
+                })
         }
     }
     controller.init(view, model)

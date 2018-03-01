@@ -18,28 +18,25 @@
         render(data) {
             let $el = $(this.el)
             $el.html(this.template)
-            let { songs } = data
-            console.log(songs)
+            let { songs, selectId } = data
             let liList = songs.map((song) => {
-                return $('<li></li>').text(song.name).attr("data-song-id",song.id)
+                let $li = $('<li></li>').text(song.name).attr('data-song-id', song.id)
+                if (song.id === selectId) { $li.addClass('active') }
+                return $li
             })
             $el.find('ul').empty()
-            liList.map((domList) => {
-                $el.find('ul').append(domList)
+            liList.map((domLi) => {
+                $el.find('ul').append(domLi)
             })
         },
         removActive() {
             $(this.el).find('.active').removeClass('active')
         },
-        activeItem(li){
-            let $li = $(li)
-            $li.addClass('active').siblings('.active').removeClass('active')
-        
-        }
     }
     let model = {
         data: {
-            songs: []
+            songs: [],
+            selectId: undefined
         },
         //从数据库中获取到数据并且展现在页面上
         find() {
@@ -60,33 +57,31 @@
             this.view = view
             this.model = model
             this.view.render(this.model.data)
-            this.getAllsongs()
             this.bindEventsHub()
+            this.getAllsongs()
             this.bindEvents()
         },
-        getAllsongs(){
-           return  this.model.find().then(() => {
+        getAllsongs() {
+            return this.model.find().then(() => {
                 this.view.render(this.model.data)
             })
         },
-        bindEvents(){
-         $(this.view.el).on('click','li',(e)=>{
-             this.view.activeItem(e.currentTarget)
-             let songId = e.currentTarget.getAttribute('data-song-id')
-             console.log("ID")
-             console.log(songId)
-             let data 
-             let songs = this.model.data.songs
-             console.log(songs)
-             for(let i = 0;i<songs.length;i++){
-                 if(songId === songs[i].id){
-                     data = songs[i]
-                     break
-                 }
-             }
-             console.log(data)
-             window.eventHub.trigger('select',JSON.parse(JSON.stringify(data)))
-         })
+        bindEvents() {
+            $(this.view.el).on('click', 'li', (e) => {
+                let songId = e.currentTarget.getAttribute('data-song-id')
+                this.model.data.selectId = songId
+                this.view.render(this.model.data)
+                let data
+                let songs = this.model.data.songs
+                for (let i = 0; i < songs.length; i++) {
+                    if (songId === songs[i].id) {
+                        data = songs[i]
+                        break
+                    }
+                }
+                console.log(data)
+                window.eventHub.trigger('select', JSON.parse(JSON.stringify(data)))
+            })
         },
         bindEventsHub() {
             //如果是创建了一个歌曲就会将这个data添加到songlist的model里面。
@@ -96,19 +91,19 @@
                 console.log(1)
                 this.view.render(this.model.data)
             })
-            window.eventHub.on('new',()=>{
-                this.view.removActive()
-            })
-            window.eventHub.on('updata',(song)=>{
+            window.eventHub.on('updata', (song) => {
                 console.log(song)
                 let songs = this.model.data.songs
                 console.log(songs)
-            for(let i = 0;i<songs.length;i++){
-                if(songs[i].id === song.id){
-                    Object.assign(songs[i],song)
+                for (let i = 0; i < songs.length; i++) {
+                    if (songs[i].id === song.id) {
+                        Object.assign(songs[i], song)
+                    }
                 }
-            }
-            this.view.render(this.model.data)
+                this.view.render(this.model.data)
+            })
+            window.eventHub.on('new', () => {
+                this.view.removActive()
             })
         }
     }
