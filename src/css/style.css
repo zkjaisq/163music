@@ -2,7 +2,7 @@
 }
 *::after{box-sizing: border-box;}
 *::before{box-sizing: border-box;}
-body{height: 100vh;width: 100vw;}
+body{height: 100vh;width: 100vw;overflow: hidden;}
 .page{height: 100vh; display: flex;flex-direction: column;background: url(http://p4.music.126.net/AAMTnbm4h8BXEsy7G4vHBg==/16571839254197802.jpg) no-repeat center rgba(0, 0, 0, 0.5);background-size: cover;z-index: -2;width: 100vw;}
 .page::after{content: '';height: 100vh;width: 100vw;position: absolute;background-color: rgba(0, 0, 0, 0.5);}
 .disco-contain{position: relative;z-index: 1;}
@@ -14,13 +14,17 @@ body{height: 100vh;width: 100vw;}
 
 
 
-.gramophone .lin{width: 49vw;position: absolute;border-radius: 50%;animation: cicle 20s infinite linear;}
+.gramophone .lin{width: 49vw;position: absolute;border-radius: 50%;animation: cicle 20s infinite linear;animation-play-state: paused;}
 
-.gramophone .black{width: 82vw;animation: cicle 20s infinite linear;}
+.gramophone .lin.active{animation-play-state: running;}
+
+.gramophone .black{width:79vw;animation: cicle 20s infinite linear;}
 
 
 
-.gramophone .disco{width: 49vw;position: absolute;border-radius: 50%;animation: cicle 20s infinite linear;}
+.gramophone .disco{width: 50vw;position: absolute;border-radius: 50%;animation: cicle 20s infinite linear;animation-play-state: paused;}
+
+.gramophone .disco.active{animation-play-state: running;}
 
 @keyframes cicle{
     0% {transform: rotate(0deg)}
@@ -34,8 +38,8 @@ body{height: 100vh;width: 100vw;}
     overflow: hidden;}
   .icon{position: absolute;z-index: 2;border: 1px  solid  white;
     border-radius: 50%;fill: white;height: 12vw;width: 12vw;border: 1px solid white;
-background-color: rgba(0, 0, 0, 0.1);display: none; }
-.icon.active{display: block;}
+background-color: rgba(0, 0, 0, 0.1); }
+.icon.active{display: none;}
 
 .song {text-align: center;line-height: 1.5;flex-grow: 1;z-index: 1;}
 .song h3{font-size: 5vw;color: white;}

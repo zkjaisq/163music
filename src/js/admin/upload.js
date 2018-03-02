@@ -66,6 +66,7 @@
 
                 var domain = up.getOption('domain');
                 var res = JSON.parse(info.response);//将JSON字符串变成对象
+                console.log(res)
                 var sourceLink = 'http://' + domain + '/' + encodeURIComponent(res.key); //获取上传成功后的文件的Url
                 let key = res.key + ''
                 let array = key.split(' - ')

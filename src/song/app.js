@@ -1,43 +1,52 @@
 {
     let view ={
-        el:'.page',
-        template:`
-        <audio src={{url}}></audio>
-        `,
-        render(data){
-            console.log(data)
-           this.$el.append(this.template.replace('{{url}}',data.url))
-        },
-        play(){
-            let audio = this.$el.find('audio')[0]
-            console.log(audio)
-            audio.play()
-        },
-        pause(){
-            let audio = this.$el.find('audio')[0]
-            audio.pause()
-        },
+        el:'#app',
         init(){
             this.$el = $(this.el)
+        },
+        render(data){
+            let {song,status} =data
+            console.log(song.cover)
+            this.$el.css('background-image',`url(${song.cover})`)
+            let $audio =$('<audio></audio>').attr('src',song.url)
+            this.$el.append($audio)
+            if(status ==='playing'){
+                $(this.el).find('.icon').addClass('active')
+                $(this.el).find('.disco').addClass('active')
+                $(this.el).find('.lin').addClass('active')
+            }else{
+                this.$el.find('.icon').removeClass('active')
+                this.$el.find('.disco').removeClass('active')
+                this.$el.find('.lin').removeClass('active')
+            }
+        },
+        play(){
+            this.$el.find('audio')[0].play()
+        },
+        paused(){
+            this.$el.find('audio')[0].pause()
         }
     }
     let model={
         data:{
-            id:'',
-            artist:'',
-            name:'',
-            url:''
+            song:{
+                id:'',
+                artist:'',
+                name:'',
+                url:'',
+                cover:''
+            },
+            status:'paused'
+          
         },
-        getId(){
+        getId(id){
             var query = new AV.Query('Song');
-             return query.get(this.data.id).then((song)=>{
-                Object.assign(this.data,song.attributes)
+             return query.get(id).then((song)=>{
+                 console.log(song)
+                Object.assign(this.data.song,{id:song.id,...song.attributes})
                 return song
             });
         },
-        setId(id){
-            this.data.id =id
-        }
     }
     let controller ={
         init(view,model){
@@ -45,14 +54,12 @@
             this.view.init()
             this.model =model
             let id = this.getSongId()
-            this.model.setId(id)
-            this.model.getId().then(()=>{
+            console.log(id)
+            this.model.getId(id).then(()=>{
                console.log(this.model.data)
-               this.view.render(this.model.data)
-               this.view.play()
-            })
-       
-            
+              this.view.render(this.model.data)
+            }) 
+            this.bindEvents()
         },
         //获取到songId，并且将id的值从查询参数中分离出来
         getSongId(){
@@ -76,6 +83,18 @@
                 }
             }
            return id
+        },
+        bindEvents(){
+           $(this.view.el).on('click','.icon',()=>{
+               this.model.data.status = 'playing'
+               this.view.render(this.model.data)
+               this.view.play()
+           })
+           $(this.view.el).on('click','.lin',()=>{
+            this.model.data.status = 'paused'
+            this.view.render(this.model.data)
+            this.view.paused()
+        })
         }
     }
     controller.init(view,model)

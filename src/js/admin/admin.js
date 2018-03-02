@@ -25,10 +25,16 @@
                
                 <input id="link"  name = "url"  type="text" value = "__url__">
             </div>
+            <div class="row">
+            <label for="cover">
+                  封面：
+            </label>
+        <input id="cover"  name="cover"  type="text" value ="__cover__">
+    </div>
             <button type="submit">上传</button>
         </form>`,
         render(data = {}) {
-            let placeholder = ['url', 'name', 'artist']
+            let placeholder = ['url', 'name', 'artist','cover']
             let html = this.template
             placeholder.map((string) => {
                 html = html.replace(`__${string}__`, data[string] || '')
@@ -42,7 +48,7 @@
     let model = {
         data: {
             name: '', artist: '', url: ''
-            , id: ''
+            , id: '',cover:''
         },
         //save数据
         creat(data) {
@@ -54,6 +60,7 @@
             song.set('name', data.name);
             song.set('artist', data.artist);
             song.set('url', data.url);
+            song.set('cover', data.cover);
             // 设置优先级
             return song.save().then((newSong) => {
                 //let id = newSong.id
@@ -82,6 +89,7 @@
             song.set('name', data.name);
             song.set('artist',data.artist);
             song.set('url',data.url);
+            song.set('cover',data.cover);
             // 保存到云端
             return song.save().then((response)=>{
                 Object.assign(this.data,data)
@@ -103,7 +111,7 @@
               })
         },
         creat() {
-            let needs = "name artist url".split(' ')
+            let needs = "name artist url cover".split(' ')
             let data = {}
             needs.map((string) => {
                 data[string] = this.view.$el.find(`[name = ${string}]`).val()
@@ -118,7 +126,7 @@
             })
         },
         updata() {
-            let needs = "name artist url".split(' ')
+            let needs = "name artist url cover".split(' ')
             let data = {}
             needs.map((string) => {
                 data[string] = this.view.$el.find(`[name = ${string}]`).val()
