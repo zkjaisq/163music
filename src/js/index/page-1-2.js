@@ -10,7 +10,7 @@
             newSons.map((song) => {
                 let $li = $(`
                 <li>
-                <a href="./broadcast.html">
+                <a href="./song.html?id=${song.id}">
                     <h3>${song.name}</h3>
                     <p>
                         <svg class="icon-play" aria-hidden="true">
@@ -50,7 +50,6 @@
         init(view, model) {
             this.view = view
             this.view.init()
-            console.log(this.$el)
             this.model = model
             this.model.find().then(() => {       
                 this.view.render(this.model.data) 
