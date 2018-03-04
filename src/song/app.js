@@ -6,10 +6,15 @@
         },
         render(data){
             let {song,status} =data
-            console.log(song.cover)
             this.$el.css('background-image',`url(${song.cover})`)
             let $audio =$('<audio></audio>').attr('src',song.url)
             this.$el.append($audio)
+            let audio =$audio[0]
+            console.log(audio)
+            audio.onended = ()=>{
+                window.eventHub.trigger('songEnd')
+                console.log('结束了')
+            }
             if(status ==='playing'){
                 $(this.el).find('.icon').addClass('active')
                 $(this.el).find('.disco').addClass('active')
@@ -94,6 +99,12 @@
             this.model.data.status = 'paused'
             this.view.render(this.model.data)
             this.view.paused()
+        })
+        window.eventHub.on('songEnd',()=>{
+            this.model.data.status='paused'
+            console.log('-------')
+            console.log(this.model.data)
+            this.view.render(this.model.data)
         })
         }
     }
