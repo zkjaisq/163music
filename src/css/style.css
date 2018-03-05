@@ -8,6 +8,11 @@ body{height: 100vh;width: 100vw;overflow: hidden;}
 .disco-contain{position: relative;z-index: 1;}
 .disco-contain .needle{width: 23vw;position: absolute;top: 0;
     left: 50%;z-index: 1;}
+.disco-contain .needle.active{
+    transform-origin: top left;
+    transform: rotate(-30deg);
+   
+}
 .gramophone{display: flex;align-items: center;justify-content: center;margin-top: 13vw;}
 
 .gramophone .linght{width: 78vw;position: absolute;}
@@ -44,7 +49,7 @@ background-color: rgba(0, 0, 0, 0.1); }
 .song {text-align: center;line-height: 1.5;flex-grow: 1;z-index: 1;}
 .song h3{font-size: 5vw;color: white;}
 .song p{ font-size: 4vw;color: #AEABAC;line-height: 8vw;}
-.song p:active{ color: white;}
+.song p.active{ color: white;}
 .song .lyric{height: 22vw;overflow: hidden;}
 .button {display: flex;justify-content: center;align-items: flex-end;z-index: 1;}
 .button a{width: 38.5vw;text-decoration: navajowhite;text-align: center;

@@ -1,6 +1,6 @@
 {
     let view = {
-        el: 'hotList',
+        el: '.hotList',
        init(){
         this.$el = $(this.el)
        },

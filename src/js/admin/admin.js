@@ -31,10 +31,16 @@
             </label>
         <input id="cover"  name="cover"  type="text" value ="__cover__">
     </div>
+    <div class="row">
+    <label for="lyrices">
+    歌词：
+</label>
+    <textarea name="lyrices" id="lyrices" cols="60" rows="5">__lyrices__</textarea>
+    </div>
             <button type="submit">上传</button>
         </form>`,
         render(data = {}) {
-            let placeholder = ['url', 'name', 'artist','cover']
+            let placeholder = ['url', 'name', 'artist', 'cover','lyrices']
             let html = this.template
             placeholder.map((string) => {
                 html = html.replace(`__${string}__`, data[string] || '')
@@ -48,7 +54,7 @@
     let model = {
         data: {
             name: '', artist: '', url: ''
-            , id: '',cover:''
+            , id: '', cover: '',lyrices:''
         },
         //save数据
         creat(data) {
@@ -61,6 +67,7 @@
             song.set('artist', data.artist);
             song.set('url', data.url);
             song.set('cover', data.cover);
+            song.set('lyrices', data.lyrices);
             // 设置优先级
             return song.save().then((newSong) => {
                 //let id = newSong.id
@@ -84,15 +91,16 @@
             });
         },
         updata(data) {
-            var  song = AV.Object.createWithoutData('Song', this.data.id);
+            var song = AV.Object.createWithoutData('Song', this.data.id);
             // 修改属性
             song.set('name', data.name);
-            song.set('artist',data.artist);
-            song.set('url',data.url);
-            song.set('cover',data.cover);
+            song.set('artist', data.artist);
+            song.set('url', data.url);
+            song.set('cover', data.cover);
+            song.set('lyrices', data.lyrices);
             // 保存到云端
-            return song.save().then((response)=>{
-                Object.assign(this.data,data)
+            return song.save().then((response) => {
+                Object.assign(this.data, data)
                 return response
             });
         },
@@ -105,18 +113,18 @@
             this.view.render(this.model.data)
             this.bindEvents()
             //当有数据上传的时候就渲染view
-            window.eventHub.on('select', (data)=>{
+            window.eventHub.on('select', (data) => {
                 this.model.data = data
                 this.view.render(this.model.data)
-              })
+            })
         },
         creat() {
-            let needs = "name artist url cover".split(' ')
+            let needs = "name artist url cover lyrices".split(' ')
             let data = {}
             needs.map((string) => {
                 data[string] = this.view.$el.find(`[name = ${string}]`).val()
             })
-
+            console.log(data)
             this.model.creat(data).then(() => {
                 this.view.reset()
                 let string = JSON.stringify(this.model.data)
@@ -126,15 +134,16 @@
             })
         },
         updata() {
-            let needs = "name artist url cover".split(' ')
+            let needs = "name artist url cover lyrices".split(' ')
             let data = {}
             needs.map((string) => {
                 data[string] = this.view.$el.find(`[name = ${string}]`).val()
             })
             // 第一个参数是 className，第二个参数是 objectId
-            this.model.updata(data).then(()=>{
+            this.model.updata(data).then(() => {
                 alert('数据更新成功')
-                window.eventHub.trigger('updata',JSON.parse(JSON.stringify(this.model.data)))
+                this.view.reset()
+                window.eventHub.trigger('updata', JSON.parse(JSON.stringify(this.model.data)))
             })
         },
         //事件相关的代码，当表单提交的时候就进行收集我们需要的数据，然后通过model调用model的方法将数据保存到数据库中
@@ -154,15 +163,15 @@
                 this.view.render(this.model.data)
             })
             window.eventHub.on('new', (data) => {
-                if(this.model.data.id){
+                if (this.model.data.id) {
                     this.model.data = {
-                      name: '', url: '', id: '', singer: ''
+                        name: '', url: '', id: '', singer: ''
                     }
-                  }else{
+                } else {
                     Object.assign(this.model.data, data)
-                  }
-                  this.view.render(this.model.data)
-                })
+                }
+                this.view.render(this.model.data)
+            })
         }
     }
     controller.init(view, model)
