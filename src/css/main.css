@@ -99,3 +99,48 @@ background: url(https://s3.music.126.net/m/s/img/index_icon_2x.png?5207a28c37679
 .newList >li  p{font-size: 3.2vw;color: #aaaaaa;line-height: 1;display: flex;}
 .newList >li  .icon{width: 6.6vw;height: 6.6vw;position: absolute;top:50%;right:4vw;transform: translateY(-50%);}
 .newList >li  p  .icon-play{height: 4.2vw;width: 4.2vw;padding-right: 1vw;fill: #fe672e;}
+
+
+.page-3 > .form{
+    padding: 15px 10px;
+ 
+}
+.page-3 > .form > .wrapper{
+    position: relative;
+}
+
+.page-3 >.form >.wrapper > input[type=text]{
+    background: #ebecec;
+    border: 1px ;
+    outline: none;
+    width: 100%;
+    height: 30px;
+    font-size: 14px;
+    line-height: 30px;
+    padding: 0 30px;
+    border-radius: 30px;
+}
+.page-3 >.form >.wrapper >  .big{
+    position: absolute;
+    height: 30px;
+    top: 0px;
+    left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.page-3 >.form > .wrapper > .delete{
+    position: absolute;
+    height: 30px;
+    top: 0px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.page-3 >.form > .wrapper > .delete.active{
+    display: flex;
+}
+
+
